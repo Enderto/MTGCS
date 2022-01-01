@@ -13,6 +13,7 @@ you have 2 solution
 You can search for card (from all set and the number of the card) an find basic information with a simple graphics interface
 
 ### What to do :
+- Search all the type of card (For now just creature and land works)
 - User decide information to display
   - Add filter
 - Optimise the download of the json
