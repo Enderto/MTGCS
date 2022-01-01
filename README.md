@@ -5,6 +5,7 @@ It's a python program that i made with [MTGJSON](https://mtgjson.com/)
 you can search for card an find basic information with a simple graphics interface
 ### What to do :
 - User decide information to display
+- Optimise the download of the json
 - Better interfaces
 - Download the card (Text only)
 ******
