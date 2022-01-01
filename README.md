@@ -24,5 +24,7 @@ You can search for card (from all set and the number of the card) an find basic 
 ******
 ### Credit:
 Thanks to
-- [MTGJSON](https://mtgjson.com/) for ther works !
+- <img src="http://mtgjson.com/images/assets/logo-mtgjson-light-blue.svg" width="60px" title="MTGJSON logo">[MTGJSON](https://mtgjson.com/) for ther works !!
+
+
 - And Internet for the help with python
