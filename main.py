@@ -70,12 +70,6 @@ def ButtonClick():
     else:
         print("ERREUR file don't exist")
 
-#Variable
-
-#load the json
-
-
-
 #The GUI
 
 root = Tk()
@@ -118,7 +112,7 @@ text.grid(sticky="W",row =0, column =0,rowspan=3)
 SearchButton.grid(row =2, column =1,sticky="WN")
 Lb1.grid(row =0, column =1,sticky="WN")
 #more config
-root.wm_title("Tkinter window")
+root.wm_title("MTGCS")
 root.geometry("720x640")
 root.configure(bg='#5b5b5b')
 root.mainloop()
