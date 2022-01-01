@@ -9,6 +9,9 @@ You can search for card (from all set and the number of the card) an find basic 
 - Optimise the download of the json
 - Better interfaces
 - Download the card (Text only)
+## Prerequired :
+- [Python](https://www.python.org/) >= 3
+- tkinter
 ******
 ### Credit:
 Thanks to
