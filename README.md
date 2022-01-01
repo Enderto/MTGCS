@@ -2,6 +2,7 @@
 ## Magic: The Gathering Card Search
 It's a python program that i made with [MTGJSON](https://mtgjson.com/)
 
+All that is very WIP
 ### How to do :
 You have to download all the set file with json extention
 you have 2 solution
