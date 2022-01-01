@@ -1,16 +1,12 @@
+#library
+import json,os
 from tkinter import *
-import json
 from pathlib import Path
-import os
 from PIL import Image, ImageTk
 
+#All the def
 
-
-avalaible=os.listdir("json")
-avalaible.sort()
-
-
-
+#search if the file existe or not
 def fileok(path):
     files = Path(path)
     if files.is_file():
@@ -18,97 +14,110 @@ def fileok(path):
     else:
         return False
 
-sets = "M21"
+def nbc(n):
+    for i in range(j["data"]["baseSetSize"]):
+        if (j["data"]["cards"][i]["number"]==n):
+            return i
 
-x = open("json/"+sets+".json","r")
-j = json.load(x)
-
-bob=j["data"]["cards"][0]["name"]
-
+#cut the description of the file to fit in the windows
 def re(a):
     tmp = len(a)
-    stmp = a.split()
+    stmp = a.split() #"cut" the description
     if (tmp >5):
         for i in range(5,len(stmp),5):
-            stmp.insert(i,"\n")
-        fs = ' '.join(stmp)
+            stmp.insert(i,"\n")#add a \n each 5 words
+        fs = ' '.join(stmp)#join all again in one str
     else:
         fs = a
     return fs
 
+#The searh of all the information
 def card(a,b):
-    x = open("json/"+a+".json","r")
-    j = json.load(x)
-    out=""
-    type = j["data"]["cards"][b]["types"][0]
-    #debut carte
-    out = out + "Name :\n"
 
+    x = open("json/"+a+".json","r")
+    global j
+    j = json.load(x)
+
+    out=""
+    types = j["data"]["cards"][b]["types"][0]
+
+    out = out + "Name :\n"
     out = out + j["data"]["cards"][b]["name"]
-    if (type!="Creature"):
-        print("hey"+type)
+    if (types!="Creature"):
+        print("This a creature, there should be some code here later ^^")
     else:
         out = out+"\n------------------------------\nMana cost :\n"+j["data"]["cards"][b]["manaCost"]+"\n"
-        
+
     out = out + "------------------------------\n"
     out = out + "Type :\n" + j["data"]["cards"][b]["originalType"]+"\n------------------------------\nSet code:\n"+j["data"]["cards"][b]["setCode"]+"\n"
     out = out + "------------------------------\n"
     out = out + "Description :\n" + re(j["data"]["cards"][b]["originalText"])+"\n"
-    if (type=="Creature"):
+    if (types=="Creature"):
         out = out + "------------------------------\nPower: \n"+j["data"]["cards"][b]["power"]+" / "+j["data"]["cards"][b]["toughness"]+"\n------------------------------\n"
-    elif (type=="Planeswalker"):
+    elif (types=="Planeswalker"):
         out = out + "-----------------------"+j["data"]["cards"][b]["loyalty"]+"-\n"
     out = out + "artist :\n" + j["data"]["cards"][b]["artist"]+"\n------------------------------\nnb from the set :\n"+str(j["data"]["cards"][b]["number"])+"/"+str(j["data"]["baseSetSize"])+"\n"
     #fin
     return out
 
-
+#When the button is clicked
 def ButtonClick():
+    choice=""
     for i in Lb1.curselection():
         choice=Lb1.get(i)
-
     if fileok("json/"+choice+".json")==True:
-        text['text']=card(choice,int(E1.get()))
+        text['text']=card(choice,nbc(E1.get()))
     else:
         print("ERREUR file don't exist")
 
+#Variable
 
+#load the json
+
+
+
+#The GUI
 
 root = Tk()
 
+#the MTGJSON Brand image
 img = Image.open('img/MTGJSON-Brand-Assets/logo-mtgjson-black.png')
 img=img.resize((50, 35))
 img = ImageTk.PhotoImage(img)
 
+#The entry for search the number of a card
 E1 = Entry(root, bd=1,)
 
 if E1.get()=="":
-    E1.insert(0, "0")
-print(E1.get())
+    E1.insert(0, "1")
 
+#Output of all the information about the card
 brand_text = Label(root,text="Powered by MTGJSON",)
 brand = Label(root,image=img)
-text = Label(root, text=card("10E",int(E1.get())),anchor='w',justify=LEFT)
+text = Label(root, text=card("10E",int(E1.get())),anchor='w',justify=LEFT)#using the fonction card()
 
+# The Search Button
+SearchButton = Button(root, text="Search", command=ButtonClick)
 
-# create button, link it to clickExitButton()
-exitButton = Button(root, text="Replace me!", command=ButtonClick)
-
-
+#The listbox that choose the set name
 Lb1 = Listbox(root)
-
+#Search all the file on json/
+avalaible=os.listdir("json")
+avalaible.sort()
+#with all the name insert it in the list
 for i in range(len(avalaible)):
     fi = avalaible[i][:len(avalaible[i])-5]
     Lb1.insert(i,fi)
 
-#organise
+#organisation of the windows
+
 brand_text.grid(row=3,column=1,sticky="E")
 brand.grid(row=3,column=2,sticky="SE")
 E1.grid(row =1, column =1,sticky="WN")
 text.grid(sticky="W",row =0, column =0,rowspan=3)
-exitButton.grid(row =2, column =1,sticky="WN")
+SearchButton.grid(row =2, column =1,sticky="WN")
 Lb1.grid(row =0, column =1,sticky="WN")
-
+#more config
 root.wm_title("Tkinter window")
 root.geometry("720x640")
 root.configure(bg='#5b5b5b')
